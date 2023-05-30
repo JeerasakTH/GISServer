@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 
 exports.verifyToken = (req, res, next) => {
-  const cookies = req.headers.cookie;
+  const cookies = req.headers.token;
 
   if (!cookies) {
     return res.status(404).json({
@@ -13,10 +13,7 @@ exports.verifyToken = (req, res, next) => {
     });
   }
 
-  const token = cookies.split("=")[1];
-  const test = token.split(";")[0];
-
-  jwt.verify(String(test), JWT_SECRET, (err, user) => {
+  jwt.verify(String(cookies), JWT_SECRET, (err, user) => {
     if (err) {
       console.log(1);
       return res.status(400).json({
