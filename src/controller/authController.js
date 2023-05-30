@@ -22,7 +22,6 @@ exports.verifyToken = (req, res, next) => {
       });
     }
     req.id = user.user_id;
+    next();
   });
-
-  next();
 };
